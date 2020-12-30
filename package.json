@@ -1,0 +1,32 @@
+{
+  "name": "jsdoc2md-treegen",
+  "preferGlobal": true,
+  "bin": {
+    "jsdoc2md-treegen": "index.js"
+  },
+  "version": "0.0.1",
+  "description": "Simple jsdoc2md cli wrapper tool to generate module tree (Reference API) documentation in markdown format.",
+  "keywords": [
+    "jsdoc",
+    "jsdoc2md",
+    "jsdoc-to-markdown",
+    "markdown",
+    "markdown tree",
+    "api",
+    "generator",
+    "javascript",
+    "js",
+    "documentation"
+  ],
+  "main": "index.js",
+  "author": "AtomMiner",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atomminer/jsdoc2md-treegen.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "jsdoc-to-markdown": "^6.0.1"
+  }
+}
