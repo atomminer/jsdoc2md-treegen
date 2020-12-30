@@ -23,6 +23,7 @@ source file located at `src/helpers/my_view.js` with following module definition
 Will be translated to `docs/myproject/controllers/myview.md` in the documentation tree.
 
 #### .jsdoc2md-treegen.json configuration file
+#### .jsdoc2md-treegen.json configuration file
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 |output|`string`|`'docs'`| Output documentation folder. docs will be used if missing|
@@ -30,8 +31,8 @@ Will be translated to `docs/myproject/controllers/myview.md` in the documentatio
 |input|<code>string\|Array</code>|`'src/**/*.js'`| Filepaths (`**` glob matching supported) of javascript source files to parse. Passed to `jsdoc2md.files`. |
 |index|<code>boolean\|string</code>|`false`| Documentation index filename. If `true` `index.md` will be created. Ex: `'README.md'`|
 |indexTemplate|<code>boolean\|string</code>|`false`| Optional documentation index template filename. |
-|moduleTemplate|<code>boolean'|string</code>|`false`| Optional single module template filename. |
-|namepaths|<code>boolean'|string</code>|`false`| JSON namepaths output filename. `namepaths.json` will be used if `true`. |
+|moduleTemplate|<code>boolean\|string</code>|`false`| Optional single module template filename. |
+|namepaths|<code>boolean\|string</code>|`false`| JSON namepaths output filename. `namepaths.json` will be used if `true`. |
 |jsdoc2md|`Object`|`{}`| `jsdoc2md` [options object](https://github.com/jsdoc2md/jsdoc-to-markdown/blob/master/docs/API.md#jsdoctomarkdown-) Passed directly to `jsdoc2md` |
 
 #### Default templates
