@@ -87,8 +87,9 @@ if(!indexname.toLowerCase().endsWith('.md')) indexname += '.md'
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Write modules
 const renderModule = (moduleName, data) => {
+	const relativeIndexPath = path.relative(path.dirname(moduleName), indexname);
 	const template = (moduleTemplate ? moduleTemplate.replace(/\$\{moduleName\}/g, moduleName) : 
-		`{{#module name="${moduleName}"}}{{>docs}}{{/module}}`).replace(/\{\{treeindex\}\}/g, indexname);
+		`{{#module name="${moduleName}"}}{{>docs}}{{/module}}`).replace(/\{\{treeindex\}\}/g, relativeIndexPath);
 	const moduleDocumentation = jsdoc2md.renderSync({data, template});
 
 	try {
