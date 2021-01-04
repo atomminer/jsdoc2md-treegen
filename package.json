@@ -4,7 +4,7 @@
   "bin": {
     "jsdoc2md-treegen": "index.js"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple jsdoc2md cli wrapper tool to generate module tree (Reference API) documentation in markdown format.",
   "keywords": [
     "jsdoc",

@@ -81,11 +81,14 @@ if(conf.indexTemplate) {
 	}
 }
 
+var indexname = typeof conf.index === 'string' ? conf.index : 'index.md';
+if(!indexname.toLowerCase().endsWith('.md')) indexname += '.md'
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Write modules
 const renderModule = (moduleName, data) => {
-	const template = moduleTemplate ? moduleTemplate.replace(/\$\{moduleName\}/g, moduleName) : 
-		`{{#module name="${moduleName}"}}{{>docs}}{{/module}}`;
+	const template = (moduleTemplate ? moduleTemplate.replace(/\$\{moduleName\}/g, moduleName) : 
+		`{{#module name="${moduleName}"}}{{>docs}}{{/module}}`).replace(/\{\{treeindex\}\}/g, indexname);
 	const moduleDocumentation = jsdoc2md.renderSync({data, template});
 
 	try {
@@ -107,8 +110,6 @@ for(var m of moduleNames) {
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Write index
 if(conf.index) {
-	var indexname = typeof conf.index === 'string' ? conf.index : 'index.md';
-	if(!indexname.toLowerCase().endsWith('.md')) indexname += '.md'
 	const location = path.resolve(outdir, `${indexname}`);
 	console.log(`Processing index --> ${indexname}`);
 	
@@ -138,6 +139,7 @@ if(conf.index) {
 	try {
 		fs.ensureFileSync(location);
 		var data = template.replace(/\{\{index\}\}/g, index)
+				.replace(/\{\{version\}\}/g, pkg.version || '0.0.0')
 				.replace(/\{\{name\}\}/g, pkg.name || '')
 				.replace(/\{\{description\}\}/g, pkg.description || '')
 		fs.writeFileSync(location, data);
