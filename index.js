@@ -3,10 +3,9 @@
 const jsdoc2md = require('jsdoc-to-markdown');
 const fs = require('fs-extra')
 const path = require('path');
-const { Console } = require('console');
 
-console.log(__dirname);
-console.log(process.cwd());
+const cwd = '/home/dev/projects/apps/newam/am-mini-miner';
+
 const errorAndExit = (e) => {
 	console.error('\x1b[31m', e, '\x1b[0m');
 	process.exit(255);
@@ -19,7 +18,7 @@ console.log('');
 
 var conf = null;
 try {
-	conf = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), '.jsdoc2md-treegen.json')));
+	conf = JSON.parse(fs.readFileSync(path.resolve(cwd, '.jsdoc2md-treegen.json')));
 }
 catch(e) {
 	errorAndExit(e);
@@ -36,7 +35,7 @@ if(!conf.output) {
 	console.log('No output folder specified. Using ./docs');
 }
 
-const outdir = path.resolve(process.cwd(), conf.output);
+const outdir = path.resolve(cwd, conf.output);
 // delete all files and folders in output folder
 if(conf.cleanOutput) {
 	console.log(`Cleaning output folder "${conf.output}"...`);
@@ -52,8 +51,10 @@ if(conf.cleanOutput) {
 var options = conf.jsdoc2md || {};
 if(!options.files) {
 	if(Array.isArray(conf.input)) options.files = conf.input.join(' ');
-	else options.files = conf.input;
+	else options.files = path.join(cwd, conf.input);
 }
+
+options.configure = path.join(__dirname,'jsdoc.config.js')
 
 const templateData = jsdoc2md.getTemplateDataSync(options);
 const moduleNames = templateData.filter(({kind}) => kind === 'module').map(({name}) => name);
@@ -65,7 +66,7 @@ var moduleTemplate = null;
 // Try loading single module template and index template
 if(conf.moduleTemplate) {
 	try {
-		moduleTemplate = fs.readFileSync(path.resolve(process.cwd(), conf.moduleTemplate), 'utf8');
+		moduleTemplate = fs.readFileSync(path.resolve(cwd, conf.moduleTemplate), 'utf8');
 	}
 	catch(e) {
 		console.warn('Failed to load module template. Using deafult. Err: ', e);
@@ -74,7 +75,7 @@ if(conf.moduleTemplate) {
 
 if(conf.indexTemplate) {
 	try {
-		indexTemplate = fs.readFileSync(path.resolve(process.cwd(), conf.indexTemplate), 'utf8');
+		indexTemplate = fs.readFileSync(path.resolve(cwd, conf.indexTemplate), 'utf8');
 	}
 	catch(e) {
 		console.warn('Failed to load index template. Using deafult. Err: ', e);
@@ -118,7 +119,7 @@ if(conf.index) {
 	var template = indexTemplate;
 	var pkg = {};
 	try {
-		const location = path.resolve(process.cwd(), 'package.json');
+		const location = path.resolve(cwd, 'package.json');
 		pkg = JSON.parse(fs.readFileSync(location, 'utf8'));
 	}
 	catch(e) {
